@@ -89,45 +89,31 @@ if not creds or not creds.valid:
 
 print("구글 계정 인증 완료")
 
-# 서비스 객체 생성 및 시간 지정
-# now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+# 서비스 객체 생성
 service = build('calendar', 'v3', credentials=creds)
-
-# print(now)
 
 # 캘린더에 추가할 파라미터 생성 및 서비스 객체를 이용한 캘린더 추가
 for data in result:
     for val in list:
         calendarData = {
             'summary': name + " " + data['회차'] + " " + val,  # 일정 제목
-            # 'location': '서울특별시 성북구 정릉동 정릉로 77', # 일정 장소
+            # 'location': '서울특별시 용산구 한강대로 지하 392', # 일정 장소
             'description': name + " " + data['회차'] + " " + val,  # 일정 설명
-            'start': {  # 시작 날짜 (몇시부터~ 일정을 넣고 싶으면 아래 dateTime으로 설정)
-                #     # 'dateTime': now, # 완
-                #     'dateTime': '2022-04-22T09:00:00',
-                # 'date' : '2022-04-24'
+            'start': {  # 시작 날짜 (몇시부터~ 일정을 넣고 싶으면 아래 dateTime으로 설정
+                # 'dateTime': '2022-04-22T09:00:00',
                 'timeZone': 'Asia/Seoul',
                 'date': data[val] if len(data[val].split("~")) == 1 else data[val].split("~")[0] # 하루 종일
             },
             'end': {  # 종료 날짜 (~몇시까지 일정을 넣고 싶으면 아래 dateTime으로 설정)
-                # 'dateTime': now + 'T10:00:00',
-                # 'dateTime': now, # 완
                 # 'dateTime': '2022-04-25T10:00:00',
                 'timeZone': 'Asia/Seoul',
                 'date': data[val] if len(data[val].split("~")) == 1 else data[val].split("~")[1] # 하루 종일
             },
-            # 'recurrence': [ # 반복 지정
-            #     'RRULE:FREQ=DAILY;COUNT=2' # 일단위; 총 2번 반복
-            # ],
-            # 'attendees': [ # 참석자
-            #     {'email': 'lpage@example.com'},
-            #     {'email': 'sbrin@example.com'},
-            # ],
             'transparency': 'transparent',
             'reminders': {  # 알림 설정
                 'useDefault': False,
                 'overrides': [
-                    {'method': 'email', 'minutes': 15 * 60},  # 24 * 60분 = 하루 전 알림 / 15 * 60 = 하루 전 오전 9시에 알림
+                    {'method': 'email', 'minutes': 15 * 60},  # 이메일로 알림이 수신됩니다. 24 * 60분 = 하루 전 알림 / 15 * 60 = 하루 전 오전 9시에 알림
                     {'method': 'popup', 'minutes': 15 * 60},  # 핸드폰 팝업으로 뜨게 됩니다.
                 ],
             },
