@@ -90,10 +90,10 @@ if not creds or not creds.valid:
 print("구글 계정 인증 완료")
 
 # 서비스 객체 생성 및 시간 지정
-now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+# now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
 service = build('calendar', 'v3', credentials=creds)
 
-print(now)
+# print(now)
 
 # 캘린더에 추가할 파라미터 생성 및 서비스 객체를 이용한 캘린더 추가
 for data in result:
