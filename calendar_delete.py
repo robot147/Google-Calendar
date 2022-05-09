@@ -41,15 +41,15 @@ if not creds or not creds.valid:
 print("구글 계정 인증 완료")
 
 # 서비스 객체 생성 및 시간 지정
-now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+# now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
 service = build('calendar', 'v3', credentials=creds)
 
-print(now)
+# print(now)
 
 # Call the Calendar API
 print('Getting the upcoming 100 events')
 # calendarId : 캘린더 ID. primary이 자기 자신입니다. 다른 캘린더에 작성하고 싶다면 매뉴얼을 참조
-# timeMin : 언제부터~
+# timeMin : 언제부터~ 고정값으로 2022-01-01~총100건에 대한 값을 조회
 # maxResults : timeMin에서부터 긁은 데이터 중 총 100건에 대해서만 출력 100건 이상 부터는 출력 X
 events_result = service.events().list(calendarId='primary',
                                       timeMin='2022-01-01T00:00:00Z',
