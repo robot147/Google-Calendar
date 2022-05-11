@@ -9,6 +9,16 @@ from google.oauth2.credentials import Credentials
 # 자격명 입력
 name = input("삭제하고 싶은 자격명을 입력해주세요 : ")
 
+with open('licenselist.json', 'r', encoding='utf-8') as f:
+    json_data = json.load(f)
+
+list = json.loads(json.dumps(json_data, ensure_ascii=False))
+
+if name in list:
+    jmCd = list[name]
+else:
+    print("자격명을 확인하여 다시 입력해주세요.")
+
 # 구글 계정 인증 절차
 # from_client_secrets_file 함수를 통하여 OAuth JSON 파일로 token.json를 만들어 줍니다.
 # json 파일 위치는 해당 py 파일과 같은 디렉토리에 넣으시면 됩니다.
